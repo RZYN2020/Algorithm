@@ -6,6 +6,9 @@ site_description: >-
 repo_name: Algorithm
 repo_url: https://github.com/RZYN2020/Algorithm.git
 
+docs_dir: src
+site_dir: docs
+
 theme:
   name: material
   language: zh
