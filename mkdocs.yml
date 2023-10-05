@@ -60,7 +60,14 @@ theme:
 markdown_extensions:
   - attr_list
   - md_in_html
-
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  
 plugins:
   - search:
       lang: ja
@@ -79,3 +86,4 @@ extra:
 nav:
   - 前言: "index.md"
   - leetcode-contest-355: "leetcode-contest-355"
+  - haskell-2023.10.05: "haskell-learning"
