@@ -3,7 +3,7 @@ $now = Get-Date
 $dateTime = $now.ToString("yyyy-MM-dd HH:mm")
 
 # 设置提交信息
-$commitMessage = "自动生成信息 [$dateTime]"
+$commitMessage = "commit  [$dateTime]"
 
 # 执行 mkdocs build
 mkdocs build
