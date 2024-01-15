@@ -157,6 +157,8 @@ tribonacci (a, b, c) n = take n $ trib
 
 噢，tribs 可以直接递归定义啊...
 
+https://www.scs.stanford.edu/16wi-cs240h/slides/basics-slides.html#(8)
+
 解答3：
 
 ```haskell
@@ -186,3 +188,5 @@ BangPattern: https://ghc.gitlab.haskell.org/ghc/doc/users_guide/exts/strict.html
 ## 其它
 
 https://en.wikibooks.org/wiki/Haskell/Understanding_monads
+
+发现一门非常好的课程...决定先看这个了 https://www.scs.stanford.edu/16wi-cs240h/sched/
