@@ -15,4 +15,4 @@ git add .
 git commit -m $commitMessage
 
 # 执行 git push
-git push
+git push py

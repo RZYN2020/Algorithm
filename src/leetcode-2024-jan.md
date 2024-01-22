@@ -268,3 +268,37 @@ impl Solution {
     }
 ```
 
+## 1.22 [2304. 网格中的最小路径代价](https://leetcode.cn/problems/minimum-path-cost-in-a-grid/)
+
+一眼动态规划，但注意：
+
+1. MAX_COST 最大值
+2. 下标写对
+
+```rust
+    pub fn min_path_cost(grid: Vec<Vec<i32>>, move_cost: Vec<Vec<i32>>) -> i32 {
+        const MAX_COST: i32 = std::i32::MAX;
+
+        let m = grid.len();
+        let n = grid[0].len();
+        let mut min_path = vec![vec![MAX_COST; n]; m];
+
+        for i in 0..n {
+            min_path[0][i] = grid[0][i];
+        }
+
+        // O(mn^2)
+        for i in 1..m {
+            for j in 0..n {
+                for k in 0..n {
+                    let parent_val = grid[i - 1][j];
+                    let total_cost = grid[i][k] + move_cost[parent_val as usize][k];
+                    min_path[i][k] = min_path[i][k].min(min_path[i - 1][j] + total_cost);
+                }
+            }
+        }
+        
+        *min_path[m - 1].iter().min().unwrap()
+    }
+```
+
