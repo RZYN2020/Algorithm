@@ -189,3 +189,82 @@ impl Solution {
 
 
 
+## 1.21 [构造最长非递减子数组](https://leetcode.cn/problems/longest-non-decreasing-subarray-from-two-arrays/)
+
+第一眼没有考虑清楚，没有认识到对每一个位置的决策都会对后续决策产生影响，有了下面错误答案。
+
+```rust
+impl Solution {
+    pub fn max_non_decreasing_length(nums1: Vec<i32>, nums2: Vec<i32>) -> i32 {
+        let l = nums1.len();
+
+        let mut res = 0;
+        let mut maxl = 0;
+        let mut cur = 0;
+        for i in 0..l {
+            let min = nums1[i].min(nums2[i]);
+            let max = nums1[i].max(nums2[i]);
+            if min >= cur {
+                cur = min;
+                maxl += 1;
+            } else if max >= cur {
+                cur = min;
+                maxl += 1;
+            } else {
+                res = res.max(maxl);
+                maxl = 1;
+                cur = min;
+            }
+        }
+        res.max(maxl)
+    }
+}
+```
+
+考虑到影响后，意识到每个位置选数组 A 或选数组 B 都要考虑，考虑可以划分子问题，找到依赖关系。又因为是否能选位置 n 上的某个数取决于位置 n-1 上的数，得出如下答案：
+
+```rust
+    // 如果把「子数组」改成「子序列」呢？ -> 转化为求一个数组的最长非递减子序列 -> 存在 O(nlog⁡n) 解法
+    // https://leetcode.cn/problems/longest-increasing-subsequence/
+    // https://www.bilibili.com/video/BV1XW4y1f7Wv/?spm_id_from=333.999.0.0&vd_source=ebce05e0e6ac0774e7cf8844bf20f437
+    pub fn max_non_decreasing_length(nums1: Vec<i32>, nums2: Vec<i32>) -> i32 {
+
+        let (mut last_min, mut last_max) = (0, 0);
+
+        let mut lmin_l = 0;
+        let mut lmax_l = 0;
+
+        let mut max_l = 0;
+
+
+        for i in 0..nums1.len() {
+            let min = nums1[i].min(nums2[i]);
+            let max = nums1[i].max(nums2[i]);
+
+            let lmin_l_ = if min >= last_max {
+                lmax_l + 1
+            } else if min >= last_min {
+                lmin_l + 1
+            } else {
+                1
+            };
+    
+            lmax_l = if max >= last_max {
+                lmax_l + 1
+            } else if max >= last_min {
+                lmin_l + 1
+            } else {
+                1
+            };
+            lmin_l = lmin_l_;
+            
+
+            last_min = min;
+            last_max = max;
+            max_l = max_l.max(lmax_l);
+        }
+
+        max_l
+    }
+```
+
