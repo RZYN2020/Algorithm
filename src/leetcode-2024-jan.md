@@ -302,3 +302,22 @@ impl Solution {
     }
 ```
 
+## 1.25 [2498. 青蛙过河 II](https://leetcode.cn/problems/frog-jump-ii/description/)
+
+构造题，这 tm 谁能想到...
+
+证明：间隔跳所得结果为所有间隔的最大值。假设存在非间隔跳最优解，则必拆分最大间隔，最大间隔拆分后反程间隔必大于原最大间隔，矛盾。故间隔跳为最优解。
+
+```rust
+impl Solution {
+    pub fn max_jump(stones: Vec<i32>) -> i32 {
+        let mut max_jmp = stones[1] - stones[0];
+        for i in 2..stones.len() {
+            max_jmp = max_jmp.max(stones[i] - stones[i - 2]);
+        }
+        max_jmp
+    }
+}
+```
+
+此外，检查可否在最大长度不超过`m`的情况下往返，二分查找 `m` 即可。（这种思路其实更有启发性）
